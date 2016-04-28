@@ -24,15 +24,18 @@ public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        response.setContentType("text/html; charset=utf-8");
 
-        if (login == null || password == null) {
-            response.setContentType("text/html; charset=utf-8");
+        if (login == null || password == null || login.length() < 4 || password.length() < 4 ||
+                login.length() > 15 || password.length() > 15) {
+            response.getWriter().println("Wrong login or password!");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
 
 
         accountService.addNewUser(new UserProfile(login, password));
-        response.setContentType("text/html; charset=utf-8");
+        response.getWriter().println("You've been registered.");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
