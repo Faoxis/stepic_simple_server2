@@ -39,8 +39,7 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
-        response.getWriter().println(PageGenerator.instance().getPage("signin.html"));
-        //response.getWriter().println("Authorized: " + login);
+        response.getWriter().println("Authorized: " + login);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
